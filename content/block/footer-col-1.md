@@ -1,3 +1,3 @@
 #### Footer col 1
 
-Med brödtext i ett stycke som säger något trevligt om just detta block, eller kanske en lista av länkar.
+Under sidan Om hittar ni länkar till mitt och kursens kursrepo samt annan information.

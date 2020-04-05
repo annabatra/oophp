@@ -70,7 +70,7 @@ PHPCBF  := $(BIN)/phpcbf
 PHPMD   := $(BIN)/phpmd
 PHPDOC  := $(BIN)/phpdoc
 BEHAT   := $(BIN)/behat
-SHELLCHECK := $(BIN)/shellcheck
+# SHELLCHECK := $(BIN)/shellcheck
 BATS := $(BIN)/bats
 
 
@@ -416,7 +416,7 @@ theme:
 # #
 # # Cimage
 # #
-# 
+#
 # define CIMAGE_CONFIG
 # <?php
 # return [
@@ -427,7 +427,7 @@ theme:
 # ];
 # endef
 # export CIMAGE_CONFIG
-# 
+#
 # define GIT_IGNORE_FILES
 # # Ignore everything in this directory
 # *
@@ -435,7 +435,7 @@ theme:
 # !.gitignore
 # endef
 # export GIT_IGNORE_FILES
-# 
+#
 # # target: cimage-install          - Install Cimage in htdocs
 # .PHONY: cimage-install
 # cimage-install:
@@ -446,7 +446,7 @@ theme:
 # 	cp vendor/mos/cimage/webroot/img.php htdocs/cimage
 # 	cp vendor/mos/cimage/webroot/img/car.png htdocs/img/
 # 	touch htdocs/cimage/img_config.php
-# 
+#
 # # target: cimage-update           - Update Cimage to latest version.
 # .PHONY: cimage-update
 # cimage-update:
@@ -458,7 +458,7 @@ theme:
 # 	cp vendor/mos/cimage/webroot/img.php htdocs/cimage
 # 	cp vendor/mos/cimage/webroot/img/car.png htdocs/img/
 # 	touch htdocs/cimage/img_config.php
-# 
+#
 # # target: cimage-config-create    - Create configfile for Cimage.
 # .PHONY: cimage-config-create
 # cimage-config-create:

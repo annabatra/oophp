@@ -6,7 +6,7 @@ return [
     // Use for styling the menu
     "wrapper" => null,
     "class" => "my-navbar rm-default rm-desktop",
- 
+
     // Here comes the menu items
     "items" => [
         [
@@ -29,6 +29,46 @@ return [
                         "text" => "Kmom02",
                         "url" => "redovisning/kmom02",
                         "title" => "Redovisning för kmom02.",
+                    ],
+                    [
+                        "text" => "Kmom03",
+                        "url" => "redovisning/kmom03",
+                        "title" => "Redovisning för kmom03.",
+                    ],
+                    [
+                        "text" => "Kmom04",
+                        "url" => "redovisning/kmom04",
+                        "title" => "Redovisning för kmom04.",
+                    ],
+                    [
+                        "text" => "Kmom05",
+                        "url" => "redovisning/kmom05",
+                        "title" => "Redovisning för kmom05.",
+                    ],
+                    [
+                        "text" => "Kmom06",
+                        "url" => "redovisning/kmom06",
+                        "title" => "Redovisning för kmom06.",
+                    ],
+                    [
+                        "text" => "Kmom07",
+                        "url" => "redovisning/kmom07",
+                        "title" => "Redovisning för kmom07.",
+                    ],
+                    [
+                        "text" => "Kmom08",
+                        "url" => "redovisning/kmom08",
+                        "title" => "Redovisning för kmom08.",
+                    ],
+                    [
+                        "text" => "Kmom09",
+                        "url" => "redovisning/kmom09",
+                        "title" => "Redovisning för kmom09.",
+                    ],
+                    [
+                        "text" => "Kmom10",
+                        "url" => "redovisning/kmom10",
+                        "title" => "Redovisning för kmom10.",
                     ],
                 ],
             ],
