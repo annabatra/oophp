@@ -70,7 +70,7 @@ PHPCBF  := $(BIN)/phpcbf
 PHPMD   := $(BIN)/phpmd
 PHPDOC  := $(BIN)/phpdoc
 BEHAT   := $(BIN)/behat
-# SHELLCHECK := $(BIN)/shellcheck
+SHELLCHECK := $(BIN)/shellcheck
 BATS := $(BIN)/bats
 
 
@@ -362,7 +362,7 @@ behat:
 install-tools-bash:
 	@$(call HELPTEXT,$@)
 	# Shellcheck
-	curl -s https://storage.googleapis.com/shellcheck/shellcheck-latest.linux.x86_64.tar.xz | tar -xJ -C build/ && rm -f .bin/shellcheck && ln build/shellcheck-latest/shellcheck .bin/
+	#curl -s https://storage.googleapis.com/shellcheck/shellcheck-latest.linux.x86_64.tar.xz | tar -xJ -C build/ && rm -f .bin/shellcheck && ln build/shellcheck-latest/shellcheck .bin/
 
 	# Bats
 	curl -Lso $(BIN)/bats-exec-suite https://raw.githubusercontent.com/sstephenson/bats/master/libexec/bats-exec-suite
