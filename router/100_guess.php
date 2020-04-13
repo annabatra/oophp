@@ -10,11 +10,7 @@
  * Init the game and redirect to play the game.
  */
 $app->router->get("guess/init", function () use ($app) {
-    // init the session for the gamestart.
     $_SESSION["game"] = new Chbl\Guess\Guess();
-    // $game = $_SESSION["game"];
-    // $_SESSION["tries"] = $game->getTriesLeft();
-
     return $app->response->redirect("guess/play");
 });
 
@@ -86,10 +82,6 @@ $app->router->post("guess/play", function () use ($app) {
     $doCheat = $_POST["doCheat"] ?? null;
     $_SESSION["doCheat"] = $doCheat;
     $res = null;
-
-
-    // $tries = $_SESSION["tries"] ?? null;
-    // $number = $_SESSION["number"] ?? null;
 
 
     if ($doGuess) {
