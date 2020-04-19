@@ -2,27 +2,21 @@
 
 namespace Anax\View;
 
-/**
- * Render content within an article.
- */
-
-// Show incoming variables and view helper functions
-//echo showEnvironment(get_defined_vars(), get_defined_functions());
-
-
+$player = $game->player();
+$gameOver = $game->getGameStatus();
 ?>
-<!-- <header> -->
-    <h1>Tärning 100</h1>
-<!-- </header> -->
-    <h3>...mellan 1-100...</h3>
-<p>Din poäng: <?php $playerScore ?></p>
-<p>Datorns poäng: <?php $cpuScore ?></p>
 
+<h1>Dice100</h1>
 
-<form method="post">
-    <input type="submit" name="doRoll" value="Roll">
-    <input type="submit" name="doSave" value="Save points">
-    <!-- <input type="submit" name="reset" value="Restart"> -->
-</form>
+<?php if (!$gameOver) : ?>
+    <div class="player_dice">
+        <div>
+            <h2>Player <?= $i + 1 ?></h2>
+            <p>Player total score: <?= $player[$i]->score() ?></p>
+            <p>Player round score: <?= $player[$i]->getRoundScore() ?></p>
+            <p><?= implode(", ", $player[$i]->currentHand()) ?></p>
+        </div>
+    </div>
 
-<a href="init" class="restart-btn">STARTA OM</a>
+<h2>The Winner is: </h2>
+<a href="init">Play again?</a>

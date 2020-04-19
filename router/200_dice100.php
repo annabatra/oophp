@@ -13,6 +13,7 @@ $app->router->get("dice100/init", function () use ($app) {
     // init the sesson for the gamestart";
     $title = "Spela spelet";
     session_destroy();
+    $app->session->start();
 
     return $app->response->redirect("dice100/play");
 });
@@ -25,20 +26,13 @@ $app->router->get("dice100/play", function () use ($app) {
     $title = "Spela spelet";
 
     $game = new Chbl\Dice100\Game();
-    $playerScore = $game->player();
-    $cpuScore = "";
 
-    // if($doRoll) {
-    //
-    // } elseif($doSave) {
-    //
-    // };
+
 
 
 
     $data = [
-        "playerScore" => $playerScore,
-        "cpuScore" => $cpuScore,
+        "game" => $game
     ];
 
     $app->page->add("dice100/play", $data);
