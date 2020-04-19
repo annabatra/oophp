@@ -29,13 +29,14 @@ class Game
     */
     public function rollDicesPlayer()
     {
+        $playerValue = 1;
         $this->player[$this->turn]->rollDices();
         $failRoll = $this->player[$this->turn]->failedRoll();
 
         if ($failRoll) {
             $this->player[$this->turn]->resetRoundScore();
             $this->player[$this->turn]->turnOver();
-            $this->nextRoll();
+            $this->nextRoll($playerValue);
         }
     }
 
@@ -45,25 +46,29 @@ class Game
     */
     public function rollDicesCPU()
     {
+        $cpuValue = 2;
         $doneRolling = $this->player[$this->turn]->rollDicesCPU();
         $failRoll = $this->player[$this->turn]->failedRoll();
 
         if ($failRoll || $doneRolling) {
             $this->player[$this->turn]->turnOver();
             $this->player[$this->turn]->newCPURoll();
-            $this->nextRoll();
+            $this->nextRoll($cpuValue);
         }
     }
 
-    public function nextRoll()
+    public function nextRoll(inputValue)
     {
         $this->player[$this->turn]->turnOver();
         $score = $this->player[$this->turn]->score();
 
         if ($score >= 100) {
             $this->gameOver = true;
+            return inputValue;
+        } elseif (inputValue == 1) {
+            rollDicesCPU();
         } else {
-
+            rollDicesPlayer();
         }
     }
 

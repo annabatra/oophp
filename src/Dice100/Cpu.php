@@ -10,7 +10,7 @@ class CPU extends Player
 
     public function __construct($dice)
     {
-        //parent::__construct($dice);
+        parent::__construct($dice);
         $this->counter = rand(1, $this->maxCPURolls);
     }
 
@@ -22,7 +22,6 @@ class CPU extends Player
 
             return false;
         }
-
         return true;
     }
 
@@ -30,5 +29,4 @@ class CPU extends Player
     {
         $this->counter = rand(1, $this->$maxCPURolls);
     }
-
 }

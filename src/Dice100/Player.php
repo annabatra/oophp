@@ -9,7 +9,7 @@ class Player
     private $hand = [];
     private $dice = [];
 
-    public function _construct(int $dice = 5)
+    public function __construct(int $dice = 5)
     {
         for ($i = 0; $i < $dice; $i++) {
             $this->dice[] = new Dice();
@@ -26,7 +26,7 @@ class Player
         $this->hand;
 
         foreach ($this->dice as $dice) {
-            $this->hand = $dice->rollDices();
+            $this->hand = $dice->rollDice();
         }
     $this->roundScore += in_array(1, $this->hand) ? 0 : array_sum($this->hand);
     return $this->roundScore;
