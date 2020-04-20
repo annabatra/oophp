@@ -6,7 +6,7 @@ class Bot extends Player
 {
 
     public $rollCount = 0;
-    private $maxRoll = 7;
+    private $maxRoll = 5;
 
 
     public function __construct()
@@ -18,7 +18,7 @@ class Bot extends Player
 
     public function botRoll()
     {
-        while ($this->rollCount > 0) {
+        if ($this->rollCount > 0) {
             parent::roll();
             $this->rollCount -= 1;
             return false;

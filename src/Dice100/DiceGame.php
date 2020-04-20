@@ -36,7 +36,6 @@ class DiceGame
 
         if ($rolledOne) {
             $this->players->resetRoundScore();
-            $this->players->endTurn();
             $this->nextTurn($playerTrack);
         }
     }
@@ -50,11 +49,13 @@ class DiceGame
 
         if ($rolledOne) {
             $this->bot->resetRoundScore();
+            $this->bot->newRollCount();
+            $this->nextTurn($botTrack);
+        }
+        if ($isDone) {
             $this->bot->endTurn();
             $this->bot->newRollCount();
             $this->nextTurn($botTrack);
-        } elseif ($isDone) {
-            $this->bot->endTurn();
         }
     }
 
@@ -66,7 +67,6 @@ class DiceGame
                 $this->finishedGame = true;
             } else {
                 $this->players->endTurn();
-                // $this->players->resetRoundScore();
                 $this->botRoll();
             }
         } elseif ($tracker == 2) {
