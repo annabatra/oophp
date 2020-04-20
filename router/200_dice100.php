@@ -4,39 +4,46 @@
  */
 //var_dump(array_keys(get_defined_vars()));
 
-
-
 /**
  * Init the game and redirect to play the game
  */
 $app->router->get("dice100/init", function () use ($app) {
-    // init the sesson for the gamestart";
-    $title = "Spela spelet";
+    // init the session for the game.
     session_destroy();
     $app->session->start();
+    $app->session->set("dice", new Chbl\Dice100\DiceGame());
 
     return $app->response->redirect("dice100/play");
 });
 
 
+$app->router->post("dice100/play", function () use ($app) {
+
+    $diceGame = $app->session->get("dice");
+
+    if ($app->request->getPost("roll")) {
+        $diceGame->playerRoll();
+    } elseif ($app->request->getPost("endTurn")) {
+        $diceGame->nextTurn(1);
+    } else {
+        $diceGame->botRoll();
+    }
+
+    return $app->response->redirect("dice100/play");
+});
+
 /**
- * Play the game
+ * Play the game - Dice
  */
 $app->router->get("dice100/play", function () use ($app) {
-    $title = "Spela spelet";
 
-    $game = new Chbl\Dice100\Game();
-
-
-
-
+    $title = "Pig Dice game";
 
     $data = [
-        "game" => $game
+        "diceGame" => $app->session->get("dice")
     ];
 
     $app->page->add("dice100/play", $data);
-    $app->page->add("dice100/debug");
 
     return $app->page->render([
         "title" => $title,

@@ -1,21 +1,35 @@
 <?php
-
 namespace Anax\View;
 
-$player = $game->player();
-$gameOver = $game->getGameStatus();
+$player = $diceGame->getPlayers();
+$bot = $diceGame->getBot();
+
+
+    var_dump($app->session);
+    var_dump($_SESSION);
+
 ?>
 
-<h1>Dice100</h1>
+<h1>Dice game 100</h1>
 
-<?php if (!$gameOver) : ?>
-    <div class="player_dice">
-        <div>
-            <h3>Här ska allt finnas sedan</h3>
-        </div>
+<div class="dice_game">
+    <div class="player_div">
+        <h2>Player 1</h2>
+        <p>Your total score: <?= $player->getScore() ?></p>
+        <p>Your round score: <?= $player->getRoundScore() ?></p>
+        <p>Last roll: <?= $player->getRoll() ?></p>
     </div>
+    <div class="bot_div">
+        <h2>Computer</h2>
+        <p>CPU total score: <?= $bot->getScore() ?></p>
+        <p>CPU round score: <?= $bot->getRoundScore() ?></p>
+        <p>Last roll: <?= $bot->getRoll() ?></p>
+    </div>
+</div>
+<form method="post">
+    <input type="submit" name="roll" value="Roll dice">
+    <input type="submit" name="endTurn" value="End turn">
+</form>
 
 <h2>The Winner is: </h2>
 <a href="init">Play again?</a>
-
-<?php endif; ?>
