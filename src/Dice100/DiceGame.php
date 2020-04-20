@@ -7,11 +7,9 @@ namespace Chbl\Dice100;
 class DiceGame
 {
 
-    private $playerTurn = null;
     private $finishedGame = false;
     private $players;
     private $bot;
-    private $playerScore  = 0;
 
     public function __construct()
     {
@@ -50,10 +48,13 @@ class DiceGame
         $isDone = $this->bot->botRoll();
         $rolledOne = $this->bot->hasRolledOne();
 
-        if ($rolledOne || $isDone) {
+        if ($rolledOne) {
+            $this->bot->resetRoundScore();
             $this->bot->endTurn();
             $this->bot->newRollCount();
             $this->nextTurn($botTrack);
+        } elseif ($isDone) {
+            $this->bot->endTurn();
         }
     }
 
@@ -61,16 +62,18 @@ class DiceGame
     public function nextTurn($tracker)
     {
         if ($tracker == 1) {
-            if ($this->playerScore >= 100) {
+            if ($this->players->getScore() >= 100) {
                 $this->finishedGame = true;
             } else {
-                $this->bot->botRoll();
+                $this->players->endTurn();
+                // $this->players->resetRoundScore();
+                $this->botRoll();
             }
         } elseif ($tracker == 2) {
-            if ($botScore >= 100) {
+            if ($this->bot->getScore() >= 100) {
                 $this->finishedGame = true;
             } else {
-                $this->player->playerRoll();
+                $this->playerRoll();
             }
         }
     }

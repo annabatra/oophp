@@ -22,8 +22,7 @@ $bot = $diceGame->getBot();
     <div class="bot_div">
         <h2>Computer</h2>
         <p>CPU total score: <?= $bot->getScore() ?></p>
-        <p>CPU round score: <?= $bot->getRoundScore() ?></p>
-        <p>Last roll: <?= $bot->getRoll() ?></p>
+        <br><br>
     </div>
 </div>
 <form method="post">

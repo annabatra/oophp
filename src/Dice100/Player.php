@@ -16,21 +16,23 @@ class Player
 
     public function roll()
     {
-        $this->roundScore = $this->dice->roll();
-        $this->currentRoll = $this->roundScore;
-        $this->playerScore += $this->roundScore;
+        $this->currentRoll = $this->dice->roll();
+        $this->roundScore += $this->currentRoll;
         return $this->roundScore;
     }
 
     public function hasRolledOne()
     {
-        if ($this->roundScore == 1) {
+        if ($this->currentRoll == 1) {
             return True;
         }
     }
 
     public function endTurn()
     {
+        if ($this->roundScore != 0) {
+            $this->playerScore += $this->roundScore;
+        }
         $this->roundScore = 0;
     }
 

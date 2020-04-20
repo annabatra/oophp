@@ -12,19 +12,17 @@ class Bot extends Player
     public function __construct()
     {
         parent::__construct();
+        $this->rollCount = rand(1, $this->maxRoll);
     }
 
 
     public function botRoll()
     {
-        $this->rollCount = rand(1, $this->maxRoll);
-        if ($this->rollCount > 0) {
+        while ($this->rollCount > 0) {
             parent::roll();
             $this->rollCount -= 1;
-
             return false;
         }
-
         return true;
     }
 
