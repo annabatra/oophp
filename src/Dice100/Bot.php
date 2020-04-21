@@ -7,6 +7,9 @@ class Bot extends Player
 
     public $rollCount = 0;
     private $maxRoll = 5;
+    private $currRoll;
+    private $totalRolled;
+    private $lastRoll = 0;
 
 
     public function __construct()
@@ -18,12 +21,24 @@ class Bot extends Player
 
     public function botRoll()
     {
-        if ($this->rollCount > 0) {
-            parent::roll();
-            $this->rollCount -= 1;
-            return false;
+        $this->totalRolled = 0;
+        while ($this->rollCount > 0) {
+            $this->currRoll = rand(1, 6);
+            if ($this->currRoll == 1) {
+                $this->totalRolled = 0;
+            } else {
+                $this->totalRolled += $this->currRoll;
+                $this->rollCount -= 1;
+                $this->lastRoll = $this->currRoll;
+            }
         }
-        return true;
+        return $this->totalRolled;
+    }
+
+
+    public function botLastRoll()
+    {
+        return $this->lastRoll;
     }
 
 

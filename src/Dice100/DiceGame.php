@@ -7,20 +7,23 @@ namespace Chbl\Dice100;
 class DiceGame
 {
 
-    private $finishedGame = false;
-    private $players;
+    private $playerWins = false;
+    private $computerWins = false;
+    private $player;
     private $bot;
+    public $checkButton = true;
+    public $chickenDinner = false;
 
     public function __construct()
     {
-        $this->players = new Player();
+        $this->player = new Player();
         $this->bot = new Bot();
     }
 
 
     public function getPlayers()
     {
-        return $this->players;
+        return $this->player;
     }
 
     public function getBot()
@@ -31,11 +34,11 @@ class DiceGame
     public function playerRoll()
     {
         $playerTrack = 1;
-        $this->players->roll();
-        $rolledOne = $this->players->hasRolledOne();
+        $this->player->roll();
+        $rolledOne = $this->player->hasRolledOne();
 
         if ($rolledOne) {
-            $this->players->resetRoundScore();
+            $this->player->resetRoundScore();
             $this->nextTurn($playerTrack);
         }
     }
@@ -44,43 +47,57 @@ class DiceGame
     public function botRoll()
     {
         $botTrack = 2;
-        $isDone = $this->bot->botRoll();
-        $rolledOne = $this->bot->hasRolledOne();
+        $totalBot = $this->bot->botRoll();
 
-        if ($rolledOne) {
-            $this->bot->resetRoundScore();
+        if ($totalBot == 0) {
             $this->bot->newRollCount();
             $this->nextTurn($botTrack);
         }
-        if ($isDone) {
-            $this->bot->endTurn();
+        if (!$totalBot == 0) {
+            $this->bot->botEndTurn($totalBot);
             $this->bot->newRollCount();
             $this->nextTurn($botTrack);
         }
     }
 
+    public function checkWhatButton()
+    {
+        return $this->checkButton;
+    }
 
     public function nextTurn($tracker)
     {
         if ($tracker == 1) {
-            if ($this->players->getScore() >= 100) {
-                $this->finishedGame = true;
+            $this->player->endTurn();
+            if ($this->player->getScore() >= 100) {
+                $this->chickenDinner = true;
+                $this->playerWins = true;
             } else {
-                $this->players->endTurn();
-                $this->botRoll();
+                $this->checkButton = false;
             }
         } elseif ($tracker == 2) {
             if ($this->bot->getScore() >= 100) {
-                $this->finishedGame = true;
+                $this->chickenDinner = true;
+                $this->computerWins = true;
             } else {
-                $this->playerRoll();
+                $this->checkButton = true;
             }
         }
     }
 
 
-    public function getFinishedGame()
+    public function anyWinner()
     {
-        return $this->finishedGame;
+        return $this->chickenDinner;
+    }
+
+    public function isPlayerWinning()
+    {
+        return $this->playerWins;
+    }
+
+    public function isBotWinning()
+    {
+        return $this->computerWins;
     }
 }

@@ -24,7 +24,7 @@ class Player
     public function hasRolledOne()
     {
         if ($this->currentRoll == 1) {
-            return True;
+            return true;
         }
     }
 
@@ -35,6 +35,13 @@ class Player
         }
         $this->roundScore = 0;
     }
+
+    public function botEndTurn($inputScore)
+    {
+        $this->playerScore += $inputScore;
+        $this->roundScore = 0;
+    }
+
 
     public function getRoll()
     {

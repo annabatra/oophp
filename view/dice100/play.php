@@ -3,34 +3,42 @@ namespace Anax\View;
 
 $player = $diceGame->getPlayers();
 $bot = $diceGame->getBot();
-
-
-    var_dump($app->session);
-    var_dump($_SESSION);
-
+$checkButton = $diceGame->checkWhatButton();
+$playerWin = $diceGame->isPlayerWinning();
+$computerWin = $diceGame->isBotWinning();
+$gameOver = $diceGame->anyWinner();
 ?>
 
 <h1>Dice game 100</h1>
 
-<div class="dice_game">
-    <div class="player_div">
-        <h2>Player 1</h2>
-        <p>Your total score: <?= $player->getScore() ?></p>
-        <p>Your round score: <?= $player->getRoundScore() ?></p>
-        <p>Last roll: <?= $player->getRoll() ?></p>
+<?php if (!$gameOver) : ?>
+    <div class="dice_game">
+        <div class="player_div">
+            <h2>Player 1</h2>
+            <p>Your total score: <?= $player->getScore() ?></p>
+            <p>Your round score: <?= $player->getRoundScore() ?></p>
+            <p>Last roll: <?= $player->getRoll() ?></p>
+        </div>
+        <div class="bot_div">
+            <h2>Computer</h2>
+            <p>CPU total score: <?= $bot->getScore() ?></p>
+            <p>CPU last roll: <?= $bot->botLastRoll() ?></p>
+            <br><br>
+        </div>
     </div>
-    <div class="bot_div">
-        <h2>Computer</h2>
-        <p>CPU total score: <?= $bot->getScore() ?></p>
-        <p>CPU round score: <?= $bot->getRoundScore() ?></p>
-        <p>CPU roll: <?= $bot->getRoll() ?></p>
-        <br><br>
-    </div>
-</div>
-<form method="post">
-    <input type="submit" name="roll" value="Roll dice">
-    <input type="submit" name="endTurn" value="End turn">
-</form>
+    <form method="post">
+        <?php if ($checkButton) : ?>
+        <input type="submit" name="roll" value="Roll dice">
+        <input type="submit" name="endTurn" value="End turn">
+        <?php elseif (!$checkButton) : ?>
+        <input type="submit" name="botRoll" value="Roll CPUs">
+        <?php endif; ?>
+    </form>
 
-<h2>The Winner is: </h2>
-<a href="init">Play again?</a>
+<?php else : ?>
+    <h2>The Winner is:
+    <?php if ($playerWin) : ?> YOU!
+    <?php elseif ($computerWin) : ?>Computer!
+    <?php endif; ?></h2>
+    <a href="init">Play again?</a>
+<?php endif; ?>
