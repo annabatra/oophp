@@ -7,7 +7,7 @@ class Player
     private $playerScore = 0;
     private $roundScore = 0;
     private $dice = 1;
-    private $currentRoll = 0;
+    public $currentRoll = 0;
 
     public function __construct()
     {

@@ -11,8 +11,8 @@ class DiceGame
     private $computerWins = false;
     private $player;
     private $bot;
-    public $checkButton = true;
-    public $chickenDinner = false;
+    private $checkButton = true;
+    private $chickenDinner = false;
 
     public function __construct()
     {
@@ -21,7 +21,7 @@ class DiceGame
     }
 
 
-    public function getPlayers()
+    public function getPlayer()
     {
         return $this->player;
     }

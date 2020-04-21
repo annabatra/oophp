@@ -26,6 +26,8 @@ class Bot extends Player
             $this->currRoll = rand(1, 6);
             if ($this->currRoll == 1) {
                 $this->totalRolled = 0;
+                $this->lastRoll = $this->currRoll;
+                break;
             } else {
                 $this->totalRolled += $this->currRoll;
                 $this->rollCount -= 1;

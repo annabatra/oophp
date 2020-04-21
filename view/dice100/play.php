@@ -1,7 +1,7 @@
 <?php
 namespace Anax\View;
 
-$player = $diceGame->getPlayers();
+$player = $diceGame->getPlayer();
 $bot = $diceGame->getBot();
 $checkButton = $diceGame->checkWhatButton();
 $playerWin = $diceGame->isPlayerWinning();
@@ -37,8 +37,10 @@ $gameOver = $diceGame->anyWinner();
 
 <?php else : ?>
     <h2>The Winner is:
-    <?php if ($playerWin) : ?> YOU!
-    <?php elseif ($computerWin) : ?>Computer!
+    <?php if ($playerWin) : ?>
+    YOU!
+    <?php elseif ($computerWin) : ?>
+    Computer!
     <?php endif; ?></h2>
     <a href="init">Play again?</a>
 <?php endif; ?>
