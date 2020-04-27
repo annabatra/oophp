@@ -13,9 +13,13 @@ class DiceGame
     private $bot;
     private $checkButton = true;
     private $chickenDinner = false;
+    private $histogram;
+    private $diceHistogram;
 
     public function __construct()
     {
+        $this->diceHistogram = new DiceHistogram();
+        $this->histogram = new Histogram();
         $this->player = new Player();
         $this->bot = new Bot();
     }
@@ -37,6 +41,10 @@ class DiceGame
         $this->player->roll();
         $rolledOne = $this->player->hasRolledOne();
 
+
+        $playerRoll = $this->player->getRoll();
+        $this->histogram->injectData($this->diceHistogram, $playerRoll);
+
         if ($rolledOne) {
             $this->player->resetRoundScore();
             $this->nextTurn($playerTrack);
@@ -48,6 +56,10 @@ class DiceGame
     {
         $botTrack = 2;
         $totalBot = $this->bot->botRoll();
+
+        $botRoll = $this->bot->getRoll();
+
+        $this->histogram->injectData($this->diceHistogram, $botRoll);
 
         if ($totalBot == 0) {
             $this->bot->newRollCount();
@@ -83,6 +95,11 @@ class DiceGame
                 $this->checkButton = true;
             }
         }
+    }
+
+    public function getHistogram()
+    {
+        return $this->histogram;
     }
 
 

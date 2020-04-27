@@ -29,10 +29,6 @@ $app->router->post("dice100/play", function () use ($app) {
         $diceGame->botRoll();
     }
 
-    // else {
-    //     $diceGame->botRoll();
-    // }
-
     return $app->response->redirect("dice100/play");
 });
 
