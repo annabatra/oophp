@@ -10,6 +10,7 @@ class Bot extends Player
     private $currRoll;
     private $totalRolled;
     private $lastRoll = 0;
+    private $saveRolls = [];
 
 
     public function __construct()
@@ -25,14 +26,23 @@ class Bot extends Player
         return $this->currRoll;
     }
 
+    public function botGetRoll()
+    {
+        return $this->currRoll;
+    }
+
+
     public function botRoll()
     {
         $this->totalRolled = 0;
-        if ($this->rollCount > 0) {
+        $this->saveRolls = [];
+        while ($this->rollCount > 0) {
             $this->botCurrRoll();
+            $this->saveRolls[] = $this->currRoll;
             if ($this->currRoll == 1) {
                 $this->totalRolled = 0;
                 $this->lastRoll = $this->currRoll;
+                break;
             } else {
                 $this->totalRolled += $this->currRoll;
                 $this->rollCount -= 1;
@@ -42,6 +52,10 @@ class Bot extends Player
         return $this->totalRolled;
     }
 
+    public function getSavedRolls()
+    {
+        return $this->saveRolls;
+    }
 
     public function botLastRoll()
     {

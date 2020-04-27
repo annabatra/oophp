@@ -57,9 +57,13 @@ class DiceGame
         $botTrack = 2;
         $totalBot = $this->bot->botRoll();
 
-        $botRoll = $this->bot->getRoll();
+        $botRoll = $this->bot->botGetRoll();
 
-        $this->histogram->injectData($this->diceHistogram, $botRoll);
+        $listRoll = $this->bot->getSavedRolls();
+
+        foreach ($listRoll as $key) {
+            $this->histogram->injectData($this->diceHistogram, $key);
+        }
 
         if ($totalBot == 0) {
             $this->bot->newRollCount();

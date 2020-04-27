@@ -33,6 +33,7 @@ class Histogram
      */
     public function getAsText()
     {
+        $this->string = "";
         $round = $this->serie;
         for ($i = $this->min; $i <= $this->max; $i++) {
             $this->string .= $i . ": ";
