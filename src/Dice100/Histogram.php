@@ -15,6 +15,7 @@ class Histogram
     private $min = 1;
     private $max = 6;
     private $string = "";
+    private $histogram;
 
     /**
      * Get the serie.

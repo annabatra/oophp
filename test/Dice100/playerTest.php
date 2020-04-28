@@ -47,4 +47,40 @@ class PlayerTest extends TestCase
 
         $this->assertEquals($exp, $res);
     }
+
+
+    public function testRoll()
+    {
+        $testPlayer = new Player();
+        $this->assertInstanceOf("\Chbl\Dice100\Player", $testPlayer);
+
+        $res = $testPlayer->roll();
+        $exp = true;
+
+        $this->assertEquals($exp, is_int($res));
+    }
+
+
+    public function gestGetScore()
+    {
+        $testPlayer = new Player();
+        $this->assertInstanceOf("\Chbl\Dice100\Player", $testPlayer);
+
+        $res = $testPlayer->getScore();
+        $exp = true;
+
+        $this->assertEquals($exp, is_int($res));
+    }
+
+
+    public function testGetRoundscore()
+    {
+        $testPlayer = new Player();
+        $this->assertInstanceOf("\Chbl\Dice100\Player", $testPlayer);
+
+        $res = $testPlayer->getRoundScore();
+        $exp = true;
+
+        $this->assertEquals($exp, is_int($res));
+    }
 }

@@ -56,7 +56,7 @@ class DiceGame
     {
         $botTrack = 2;
 
-        if ($this->bot->getScore() > 60) {
+        if ($this->bot->getScore() > 70) {
             $totalBot = $this->bot->botSafeRoll();
         } elseif ($this->bot->getScore() < 25) {
             $totalBot = $this->bot->botBraveRoll();
