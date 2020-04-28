@@ -52,6 +52,49 @@ class Bot extends Player
         return $this->totalRolled;
     }
 
+
+    public function botSafeRoll()
+    {
+        $this->totalRolled = 0;
+        $this->saveRolls = [];
+        $this->rollCount = 2;
+        while ($this->rollCount > 0) {
+            $this->botCurrRoll();
+            $this->saveRolls[] = $this->currRoll;
+            if ($this->currRoll == 1) {
+                $this->totalRolled = 0;
+                $this->lastRoll = $this->currRoll;
+                break;
+            } else {
+                $this->totalRolled += $this->currRoll;
+                $this->rollCount -= 1;
+                $this->lastRoll = $this->currRoll;
+            }
+        }
+        return $this->totalRolled;
+    }
+
+    public function botBraveRoll()
+    {
+        $this->totalRolled = 0;
+        $this->saveRolls = [];
+        $this->rollCount = 7;
+        while ($this->rollCount > 0) {
+            $this->botCurrRoll();
+            $this->saveRolls[] = $this->currRoll;
+            if ($this->currRoll == 1) {
+                $this->totalRolled = 0;
+                $this->lastRoll = $this->currRoll;
+                break;
+            } else {
+                $this->totalRolled += $this->currRoll;
+                $this->rollCount -= 1;
+                $this->lastRoll = $this->currRoll;
+            }
+        }
+        return $this->totalRolled;
+    }
+
     public function getSavedRolls()
     {
         return $this->saveRolls;

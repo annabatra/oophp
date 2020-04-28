@@ -55,9 +55,14 @@ class DiceGame
     public function botRoll()
     {
         $botTrack = 2;
-        $totalBot = $this->bot->botRoll();
 
-        $botRoll = $this->bot->botGetRoll();
+        if ($this->bot->getScore() > 60) {
+            $totalBot = $this->bot->botSafeRoll();
+        } elseif ($this->bot->getScore() < 25) {
+            $totalBot = $this->bot->botBraveRoll();
+        } else {
+            $totalBot = $this->bot->botRoll();
+        }
 
         $listRoll = $this->bot->getSavedRolls();
 
