@@ -99,5 +99,10 @@ return [
             "url" => "dev",
             "title" => "Anax development utilities",
         ],
+        [
+        "text" => "Movies",
+        "url" => "movie",
+        "title" => "Movies",
+        ]
     ],
 ];

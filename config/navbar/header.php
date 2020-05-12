@@ -107,6 +107,11 @@ return [
         "text" => "Dice100",
         "url" => "dice1/init",
         "title" => "Spela Dice100",
+        ],
+        [
+        "text" => "Movies",
+        "url" => "movie",
+        "title" => "Movies",
         ]
     ]
 ];

@@ -2,7 +2,7 @@
 
 namespace Anax\View;
 
-
+require "../view/movie/header.php";
 
 if (!$resultset) {
     return;
@@ -22,7 +22,7 @@ if (!$resultset) {
     <tr>
         <td><?= $id ?></td>
         <td><?= $row->id ?></td>
-        <td><img class="thumb" src="<?= $row->image ?>"></td>
+        <td><img class="thumb" src="../<?= htmlentities($row->image) ?>"></td>
         <td><?= $row->title ?></td>
         <td><?= $row->year ?></td>
     </tr>
