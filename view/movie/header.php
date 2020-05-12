@@ -10,10 +10,10 @@
 
 <h1>Min databas!</h1>
 <navbar class="navbar-movie">
-    <a href="show-all">Visa alla filmer</a> |
-    <a href="search-title">Sök titel</a> |
-    <a href="search-year">Sök år</a> |
-    <a href="movie-select">Skapa, uppdatera, ta bort</a> |
+    <a class="linkOne" href="show-all">Visa alla filmer</a> |
+    <a class="linkOne" href="search-title">Sök titel</a> |
+    <a class="linkOne" href="search-year">Sök år</a> |
+    <a class="linkOne" href="movie-select">Skapa, uppdatera, ta bort</a>
 </navbar><br><br>
 
 <main>

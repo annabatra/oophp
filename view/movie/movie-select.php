@@ -26,7 +26,7 @@ require "../view/movie/header.php";?>
         <input type="submit" name="doEdit" value="Editera" formaction="editMovie">
         <input type="submit" name="doDelete" value="Radera" formaction="deleteMovie">
     </p>
-    <p><a href="show-all">Visa alla</a></p>
+    <p><a class="linkOne" href="show-all">Visa alla</a></p>
     </fieldset>
 </form>
 </main>

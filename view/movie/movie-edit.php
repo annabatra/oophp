@@ -31,8 +31,8 @@ require "../view/movie/header.php";
         <input type="reset" value="Återställ">
     </p>
     <p>
-        <a href="movie-select">Välj film</a> |
-        <a href="show-all">Visa alla</a>
+        <a class="linkOne" href="movie-select">Välj film</a> |
+        <a class="linkOne" href="show-all">Visa alla</a>
     </p>
     </fieldset>
 </form>

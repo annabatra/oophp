@@ -39,7 +39,7 @@
     </table>
 <?php endif;
 
-?> <p><a href="show-all">Visa alla</a></p>
+?> <p><a class="linkOne" href="show-all">Visa alla</a></p>
 </fieldset>
 </form>
 </main>

@@ -12,7 +12,7 @@
     <p>
         <input type="submit" name="Search" value="Sök">
     </p>
-    <p><a href="show-all">Visa alla</a></p>
+    <p><a class="linkOne" href="show-all">Visa alla</a></p>
 
 
 <?php if ($resultset) : ?>

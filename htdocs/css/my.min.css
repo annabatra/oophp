@@ -62,3 +62,21 @@ th,
 td {
     padding: 4px;
 }
+
+a.linkOne:link {
+    text-decoration: none;
+    color: blue;
+}
+
+a.linkOne:visited {
+  text-decoration: none;
+  color: blue;
+}
+
+a.linkOne:hover {
+  text-decoration: underline;
+}
+
+a.linkOne:active {
+  text-decoration: underline;
+}
