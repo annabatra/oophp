@@ -6,14 +6,8 @@ use Anax\Commons\AppInjectableInterface;
 use Anax\Commons\AppInjectableTrait;
 
 require "function.php";
-
-
-// use Anax\Route\Exception\ForbiddenException;
-// use Anax\Route\Exception\NotFoundException;
-// use Anax\Route\Exception\InternalErrorException;
-
 /**
- * Controller for the Movie Database
+ * Controller for the CMS Database
  *
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
@@ -31,7 +25,7 @@ class CmsController implements AppInjectableInterface
         $title = "CMS | Innehåll";
 
         $this->app->db->connect();
-        $sql = "SELECT * FROM content";
+        $sql = "SELECT * FROM content;";
 
         $data = [
             "resultset" => $this->app->db->executeFetchAll($sql)
@@ -44,36 +38,33 @@ class CmsController implements AppInjectableInterface
         ]);
     }
 
+        public function adminAction()
+        {
+            $title = "CMS | Admin";
+            $this->app->db->connect();
+            $sql = "SELECT * FROM content;";
 
-    public function adminAction()
-    {
-        $title = "CMS | Admin";
-        $this->app->db->connect();
-        $sql = "SELECT * FROM content;";
+            $data = [
+                "resultset" => $this->app->db->executeFetchAll($sql)
+            ];
 
-        $data = [
-            "resultset" => $this->app->db->executeFetchAll($sql)
-        ];
+            $this->app->page->add("cms/admin", $data);
 
-        $this->app->page->add("cms/admin", $data);
+            return $this->app->page->render([
+                "title" => $title,
+            ]);
+        }
 
-        return $this->app->page->render([
-            "title" => $title,
-        ]);
-    }
+        public function resetActionGet()
+        {
+            $title = "CMS | Återställ";
 
+            $this->app->page->add("cms/reset");
 
-    public function createActionGet()
-    {
-        $title = "CMS | Skapa";
-
-        $this->app->page->add("cms/create");
-
-        return $this->app->page->render([
-            "title" => $title,
-        ]);
-    }
-
+            return $this->app->page->render([
+                "title" => $title,
+            ]);
+        }
 
     public function createActionPost()
     {
@@ -91,18 +82,16 @@ class CmsController implements AppInjectableInterface
         }
     }
 
-
-    public function resetActionGet()
+    public function createActionGet()
     {
-        $title = "CMS | Återställ";
+        $title = "CMS | Skapa";
 
-        $this->app->page->add("cms/reset");
+        $this->app->page->add("cms/create");
 
         return $this->app->page->render([
             "title" => $title,
         ]);
     }
-
 
     public function pagesActionGet()
     {
@@ -133,6 +122,34 @@ class CmsController implements AppInjectableInterface
         ]);
     }
 
+    public function blogActionGet()
+    {
+        $title = "CMS | Blogg";
+        $this->app->db->connect();
+
+        $sql = <<<EOD
+            SELECT
+                *,
+                DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
+                DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
+            FROM content
+            WHERE type=?
+            AND (deleted IS NULL OR deleted > NOW())
+            ORDER BY published DESC
+            ;
+        EOD;
+
+        $resultset = $this->app->db->executeFetchAll($sql, ["post"]);
+        $data = [
+            "resultset" => $resultset
+        ];
+
+        $this->app->page->add("cms/blog", $data);
+
+        return $this->app->page->render([
+            "title" => $title,
+        ]);
+    }
 
     public function pageActionGet($path)
     {
@@ -159,36 +176,6 @@ class CmsController implements AppInjectableInterface
         ];
 
         $this->app->page->add("cms/page", $data);
-
-        return $this->app->page->render([
-            "title" => $title,
-        ]);
-    }
-
-
-    public function blogActionGet()
-    {
-        $title = "CMS | Blogg";
-        $this->app->db->connect();
-
-        $sql = <<<EOD
-            SELECT
-                *,
-                DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
-                DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
-            FROM content
-            WHERE type=?
-            AND (deleted IS NULL OR deleted > NOW())
-            ORDER BY published DESC
-            ;
-        EOD;
-
-        $resultset = $this->app->db->executeFetchAll($sql, ["post"]);
-        $data = [
-            "resultset" => $resultset
-        ];
-
-        $this->app->page->add("cms/blog", $data);
 
         return $this->app->page->render([
             "title" => $title,
@@ -232,24 +219,6 @@ class CmsController implements AppInjectableInterface
     /**
      * CRUD METHODS
      */
-
-    public function editActionGet()
-    {
-        $title = "CMS | Editera";
-        $this->app->db->connect();
-        $id = $this->app->request->getGet("id");
-        $sql = "SELECT * FROM content WHERE id LIKE ?";
-
-        $data = [
-            "content" => $this->app->db->executeFetchAll($sql, [$id])
-        ];
-
-        $this->app->page->add("cms/edit", $data);
-
-        return $this->app->page->render([
-            "title" => $title,
-        ]);
-    }
 
     public function editActionPost()
     {
@@ -299,6 +268,36 @@ class CmsController implements AppInjectableInterface
         }
     }
 
+    public function editActionGet()
+    {
+        $title = "CMS | Editera";
+        $this->app->db->connect();
+        $id = $this->app->request->getGet("id");
+        $sql = "SELECT * FROM content WHERE id LIKE ?";
+
+        $data = [
+            "content" => $this->app->db->executeFetchAll($sql, [$id])
+        ];
+
+        $this->app->page->add("cms/edit", $data);
+
+        return $this->app->page->render([
+            "title" => $title,
+        ]);
+    }
+
+    public function deleteActionPost()
+    {
+        $this->app->db->connect();
+
+        if (hasKeyPost("doDelete")) {
+            $contentId = getPost("contentId");
+            $sql = "UPDATE content SET deleted=NOW() WHERE id=?;";
+            $this->app->db->execute($sql, [$contentId]);
+            return $this->app->response->redirect("cms/admin");
+        }
+    }
+
     public function deleteActionGet()
     {
         $title = "CMS | Radera";
@@ -315,18 +314,5 @@ class CmsController implements AppInjectableInterface
         return $this->app->page->render([
             "title" => $title,
         ]);
-    }
-
-
-    public function deleteActionPost()
-    {
-        $this->app->db->connect();
-
-        if (hasKeyPost("doDelete")) {
-            $contentId = getPost("contentId");
-            $sql = "UPDATE content SET deleted=NOW() WHERE id=?;";
-            $this->app->db->execute($sql, [$contentId]);
-            return $this->app->response->redirect("cms/admin");
-        }
     }
 }

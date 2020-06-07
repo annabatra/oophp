@@ -5,7 +5,7 @@ if (!$resultset) {
 }
 
 require "../view/cms/header.php";
-// var_dump($data);
+
 ?>
 
 <table>
