@@ -4,7 +4,7 @@ if (!$resultset) {
     return;
 }
 
-$textFilter = new Chbl\TextFilter\TextfilterMain();
+$textFilter = new Chbl\Textfilter\TextfilterMain();
 
 require "../view/cms/header.php";
 ?>

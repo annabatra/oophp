@@ -110,7 +110,7 @@ class CmsController implements AppInjectableInterface
                 FROM content
                 WHERE type=?
                 ;
-            EOD;
+EOD;
         $data = [
             "resultset" => $this->app->db->executeFetchAll($sql, [$page]),
             "title" => $title
@@ -137,7 +137,7 @@ class CmsController implements AppInjectableInterface
             AND (deleted IS NULL OR deleted > NOW())
             ORDER BY published DESC
             ;
-        EOD;
+EOD;
 
         $resultset = $this->app->db->executeFetchAll($sql, ["post"]);
         $data = [
@@ -168,7 +168,7 @@ class CmsController implements AppInjectableInterface
                 AND (deleted IS NULL OR deleted > NOW())
                 AND published <= NOW()
             ;
-        EOD;
+EOD;
 
         $resultset = $this->app->db->executeFetch($sql, [$path, "page"]);
         $data = [
@@ -201,7 +201,7 @@ class CmsController implements AppInjectableInterface
                 AND published <= NOW()
             ORDER BY published DESC
             ;
-        EOD;
+EOD;
 
         $resultset = $this->app->db->executeFetch($sql, [$slug, "post"]);
         $data = [
